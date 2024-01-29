@@ -1,13 +1,9 @@
-type PokemonBasicInfo = {
+  export type Pokemon = {
     name: string;
     id: string;
     imgSrc: string;
-  };
-  
- type PokemonDetails = {
+    gifSrc: string;
     hp: number;
     attack: number;
     defense: number;
   };
-
-  export type Pokemon = PokemonBasicInfo & PokemonDetails   
