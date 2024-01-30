@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
 import { fetchPokemons } from "./api/fetchPokemons";
 import { Pokemon } from "./types/types.d";
+import Loader from "./components/Loader";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -13,15 +14,17 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(100); // Ajusta el tamaño de la página según tus necesidades
   const [filteredPokemonList, setFilteredPokemonList] = useState<Pokemon[]>([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   // Hook de efecto para cargar la lista de pokemons al montar el componente
 
   useEffect(() => {
     (async () => {
       try {
+        setIsLoading(true);
         const pokemons = await fetchPokemons();
         console.log('Pokemons:', pokemons);
         setPokemonList(pokemons);
+        setIsLoading(false);
       } catch (error: any) {
         console.error('Error al obtener pokemons:', error.message);
       }
@@ -46,6 +49,10 @@ export default function Home() {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+
+  if (isLoading || pokemonList === null) {
+    return <Loader />;
+  }
 
   return (
     <main className={styles.main}>
