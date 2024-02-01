@@ -17,10 +17,10 @@ export default function Home() {
   const [pageSize, setPageSize] = useState(100); // Ajusta el tamaño de la página según tus necesidades
   const [filteredPokemonList, setFilteredPokemonList] = useState<Pokemon[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [pokemonData, setPokemonData] = usePokemons();
+  const pokemonData = usePokemons()
   // Hook de efecto para cargar la lista de pokemons al montar el componente
 
-  console.log(pokemonData);	
+  console.log('aa',pokemonData);	
   useEffect(() => {
     (async () => {
       try {

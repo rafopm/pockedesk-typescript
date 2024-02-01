@@ -47,7 +47,6 @@ export async function fetchPokemons(): Promise<Pokemon[]> {
                 attack: pokemon.attack,
                 defense: pokemon.defense,
             }));
-            console.log('pokemons', pokemons)
             // Devuelve el array de Pokémon únicos
             return pokemons;
         } else {
