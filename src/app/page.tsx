@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { fetchPokemons } from "./api/fetchPokemons";
 import { Pokemon } from "./types/types.d";
 import Loader from "./components/Loader";
+import Link from "next/link";
+import { usePokemons } from "./context/pokemonContext";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -15,14 +17,16 @@ export default function Home() {
   const [pageSize, setPageSize] = useState(100); // Ajusta el tamaño de la página según tus necesidades
   const [filteredPokemonList, setFilteredPokemonList] = useState<Pokemon[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [pokemonData, setPokemonData] = usePokemons();
   // Hook de efecto para cargar la lista de pokemons al montar el componente
 
+  console.log(pokemonData);	
   useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
         const pokemons = await fetchPokemons();
-        console.log('Pokemons:', pokemons);
+        
         setPokemonList(pokemons);
         setIsLoading(false);
       } catch (error: any) {
@@ -62,7 +66,7 @@ export default function Home() {
           <button onClick={() => setCurrentPage((prev) => prev - 1)} disabled={currentPage === 1}>
             Anterior
           </button>
-          <span>Página {currentPage}</span>
+          <span> Página {currentPage} de {Math.ceil(filteredPokemonList.length / pageSize)} </span>
           <button
             onClick={() => setCurrentPage((prev) => prev + 1)}
             disabled={currentPage * pageSize >= filteredPokemonList.length}
@@ -72,11 +76,14 @@ export default function Home() {
         </div>
 
         {query !== "" ? (
-          <div>
+          <div >
             {filteredPokemonList.map((pokemon, index) => (
-              <div key={index}>
-                <h1>{pokemon.name}</h1>
-                <img src={pokemon.gifSrc} alt={pokemon.name} />
+              <div key={index} >
+                <Link href={`/${pokemon.id}`}>
+                  <h1>
+                    {pokemon.name}</h1>
+                  <img src={pokemon.gifSrc} alt={pokemon.name} />
+                </Link>
               </div>
             ))}
           </div>
@@ -84,8 +91,11 @@ export default function Home() {
           <div>
             {paginatedPokemons.map((pokemon, index) => (
               <div key={index}>
-                <h1>{pokemon.name}</h1>
-                <img src={pokemon.gifSrc} alt={pokemon.name} />
+                <Link href={{ pathname: `/${pokemon.id}` }}>
+
+                  <h1>{pokemon.name}</h1>
+                  <img src={pokemon.gifSrc} alt={pokemon.name} />
+                </Link>
               </div>
             ))}
           </div>

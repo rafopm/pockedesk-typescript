@@ -14,7 +14,7 @@ interface PokemonApiResponse {
         attack: number,
         defense: number,
         sprites: {
-            normal: string;
+            large: string;
             animated: string;
         }
     }[];
@@ -39,7 +39,7 @@ export async function fetchPokemons(): Promise<Pokemon[]> {
             const pokemons: Pokemon[] = data.results.map((pokemon) => ({
                 name: pokemon.name,
                 id: pokemon.national_number,
-                imgSrc: pokemon.sprites.normal,
+                imgSrc: pokemon.sprites.large,
                 gifSrc: `${IMAGE_PATH}${formatName(
                     pokemon.name.toLowerCase()
                 )}.gif`,
@@ -47,15 +47,9 @@ export async function fetchPokemons(): Promise<Pokemon[]> {
                 attack: pokemon.attack,
                 defense: pokemon.defense,
             }));
-
-            // Filtra para obtener únicamente Pokémon únicos por su identificador 'id'
-            const uniquePokemons = pokemons.filter(
-                (pokemon, index, array) =>
-                    array.findIndex((other) => other.id === pokemon.id) === index
-            );
-
+            console.log('pokemons', pokemons)
             // Devuelve el array de Pokémon únicos
-            return uniquePokemons;
+            return pokemons;
         } else {
             // Maneja errores para códigos de estado no exitosos
             console.error('Error al obtener datos de la API. Código de estado:', response.status);
