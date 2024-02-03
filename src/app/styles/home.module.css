@@ -1,0 +1,73 @@
+.buttonsNav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.buttonLeft {
+    margin-right: 20px;
+    border-style: none;
+    background-color: transparent;
+}
+
+.buttonLeft:disabled {
+    opacity: 0.5;
+}
+  
+
+.buttonRight {
+    margin-left: 20px;
+    border-style: none;
+    background-color: transparent;
+    transform: rotate(180deg);
+}
+
+.buttonRight:disabled {
+    opacity: 0.5;
+}
+
+.pageInfo{
+    border: solid 3px var(--secondary-color);
+    border-radius: 5px;
+    padding: 5px;
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.grid{
+   margin-top: 20px;
+   display: flex;
+   gap: 10px;
+   flex-wrap: wrap;
+   justify-content: center;
+
+}
+
+.card{
+    display: flex;
+    width: 360px;
+    height: 80px;
+    background: var(--secondary-color);
+    border-radius: 5px;
+}
+
+.image{
+    width: 70px;
+    height: 70px;
+    margin: 10px;
+}
+
+.name{
+    width: 260px;
+    color: var(--text-color-light);
+    font-size: 1.5rem;
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.name:visited{
+    text-decoration: none;
+}

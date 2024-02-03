@@ -15,13 +15,14 @@
 }
 
 .search {
+    border-radius: 5px;
     width: 100%;
     height: 45px;
     background: var(--secondary-color);
     color: var(--text-color-light);
     font-size: 1.5rem;
     border-style: none;
-    padding: 5px;
+    padding: 10px;
 }
 
 .search::placeholder {

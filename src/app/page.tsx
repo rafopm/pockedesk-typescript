@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "./page.module.css";
+import Styles from "./styles/home.module.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import { Pokemon } from "./types/types.d";
 import Loader from "./components/Loader";
 import Link from "next/link";
 import { usePokemons } from "./context/pokemonContext";
+import Image from "next/image";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -59,44 +60,48 @@ export default function Home() {
   }
 
   return (
-    <main className={styles.main}>
+    <main className={Styles.main}>
       <Header query={query} setQuery={setQuery} />
-      <div className={styles.description}>
-        <div>
-          <button onClick={() => setCurrentPage((prev) => prev - 1)} disabled={currentPage === 1}>
-            Anterior
+      <div className={Styles.description}>
+        <div className={Styles.buttonsNav}>
+          <button
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            disabled={currentPage === 1}
+            className={Styles.buttonLeft}>
+            <Image src="/images/arrow.svg" alt="Arrow" width={30} height={30} />
           </button>
-          <span> Página {currentPage} de {Math.ceil(filteredPokemonList.length / pageSize)} </span>
+          <span className={Styles.pageInfo}> Página {currentPage} de {Math.ceil(filteredPokemonList.length / pageSize)} </span>
           <button
             onClick={() => setCurrentPage((prev) => prev + 1)}
             disabled={currentPage * pageSize >= filteredPokemonList.length}
-          >
-            Siguiente
+            className={Styles.buttonRight}>
+            <Image src="/images/arrow.svg" alt="Arrow" width={30} height={30} />
           </button>
         </div>
 
         {query !== "" ? (
-          <div >
+          <div className={Styles.grid}>
             {filteredPokemonList.map((pokemon, index) => (
-              <div key={index} >
-                <Link href={`/${pokemon.id}`}>
-                  <h1>{pokemon.name}</h1>
-                    <img src={pokemon.gifSrc} alt={pokemon.name} />
-        
-                </Link>
-              </div>
+
+              <Link key={index} href={`/${pokemon.id}`}>
+                <div className={Styles.card} >
+                  <img src={pokemon.gifSrc} alt={pokemon.name} className={Styles.image} />
+                  <h1 className={Styles.name}>{pokemon.name}</h1>
+                </div>
+              </Link>
+
             ))}
           </div>
         ) : (
-          <div>
+          <div className={Styles.grid}>
             {paginatedPokemons.map((pokemon, index) => (
-              <div key={index}>
-                <Link href={`/${pokemon.id}`}>
-                  <h1>{pokemon.name}</h1>
-
-                    <img src={pokemon.gifSrc} alt={pokemon.name} />
-              
-                </Link> 
+              <div key={index} className={Styles.card} >
+              <Link key={index} href={`/${pokemon.id}`}>
+                <div className={Styles.card} >
+                  <img src={pokemon.gifSrc} alt={pokemon.name} className={Styles.image} />
+                  <h1 className={Styles.name}>{pokemon.name}</h1>
+                </div>
+              </Link>
               </div>
             ))}
           </div>
