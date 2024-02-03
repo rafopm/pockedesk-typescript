@@ -20,25 +20,25 @@ export default function Home() {
   const pokemonData = usePokemons()
   // Hook de efecto para cargar la lista de pokemons al montar el componente
 
-  console.log('aa',pokemonData);	
-  useEffect(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        const pokemons = await fetchPokemons();
-        
-        setPokemonList(pokemons);
-        setIsLoading(false);
-      } catch (error: any) {
-        console.error('Error al obtener pokemons:', error.message);
-      }
-    })();
-  }, []);
+  console.log('aa', pokemonData);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const pokemons = await fetchPokemons();
+
+  //       setPokemonList(pokemons);
+  //       setIsLoading(false);
+  //     } catch (error: any) {
+  //       console.error('Error al obtener pokemons:', error.message);
+  //     }
+  //   })();
+  // }, []);
 
   // Hook de efecto para filtrar la lista de pokemons cuando el valor de 'query' cambia
 
   useEffect(() => {
-    const filteredList = pokemonList.filter((pokemon) =>
+    const filteredList = pokemonData.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(query.toLowerCase())
     );
 
@@ -46,7 +46,7 @@ export default function Home() {
 
     // Si query está en blanco, utiliza la paginación normal; de lo contrario, muestra todos los resultados en una página
     setPageSize(query === "" ? 100 : filteredList.length);
-  }, [query, pokemonList]);
+  }, [query, pokemonData]);
 
   // Lista de pokemons paginada
   const paginatedPokemons = filteredPokemonList.slice(
@@ -54,7 +54,7 @@ export default function Home() {
     currentPage * pageSize
   );
 
-  if (isLoading || pokemonList === null) {
+  if (isLoading || pokemonData === null) {
     return <Loader />;
   }
 
@@ -80,9 +80,9 @@ export default function Home() {
             {filteredPokemonList.map((pokemon, index) => (
               <div key={index} >
                 <Link href={`/${pokemon.id}`}>
-                  <h1>
-                    {pokemon.name}</h1>
-                  <img src={pokemon.gifSrc} alt={pokemon.name} />
+                  <h1>{pokemon.name}</h1>
+                    <img src={pokemon.gifSrc} alt={pokemon.name} />
+        
                 </Link>
               </div>
             ))}
@@ -91,11 +91,12 @@ export default function Home() {
           <div>
             {paginatedPokemons.map((pokemon, index) => (
               <div key={index}>
-                <Link href={{ pathname: `/${pokemon.id}` }}>
-
+                <Link href={`/${pokemon.id}`}>
                   <h1>{pokemon.name}</h1>
-                  <img src={pokemon.gifSrc} alt={pokemon.name} />
-                </Link>
+
+                    <img src={pokemon.gifSrc} alt={pokemon.name} />
+              
+                </Link> 
               </div>
             ))}
           </div>

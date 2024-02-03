@@ -31,6 +31,6 @@ export function PokemonProvider({ children }: { children: ReactNode }) {
 
 // Hook personalizado para acceder al contexto de los pokemons
 export function usePokemons(): Pokemon[] {
-    const pokemonData = useContext(PokemonContext);
+    const pokemonData = useContext(PokemonContext); 
     return pokemonData;
 }
