@@ -59,7 +59,6 @@ export default function Home() {
   );
 
   if (isLoading) {
-    console.log("Loading")
     return <Loader />;
   }
 

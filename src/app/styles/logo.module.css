@@ -26,3 +26,13 @@
     height: 60px;
     border-radius: 5px;
 }
+
+@media screen and (max-width: 480px) {
+    .container {
+        margin-top: 10px;
+    }
+
+    .home {
+        margin-top: 10px;
+    }
+}
