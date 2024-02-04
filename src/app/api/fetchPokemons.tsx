@@ -48,11 +48,11 @@ export async function fetchPokemons(): Promise<Pokemon[]> {
             const uniquePokemons: Pokemon[] = Array.from(uniquePokemonsMap.values());
             return uniquePokemons;
         } else {
-            console.error('Error al obtener datos de la API. Código de estado:', response.status);
+             //console.error('Error al obtener datos de la API. Código de estado:', response.status);
             throw new Error('Error al obtener datos de la API');
         }
     } catch (error: any) {
-        console.error('Error en la solicitud Fetch:', error.message);
+        //console.error('Error en la solicitud Fetch:', error.message);
         throw new Error('Error desconocido en la solicitud Fetch');
     }
 }
