@@ -14,8 +14,8 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(100); // Ajusta el tamaño de la página según tus necesidades
-  const [filteredPokemonList, setFilteredPokemonList] = useState<Pokemon[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [filteredPokemonList, setFilteredPokemonList] = useState<Pokemon[]>([]); //useState<Pokemon | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const pokemonData = usePokemons()
   const [showScrollButton, setShowScrollButton] = useState(false);
 
@@ -42,17 +42,14 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setIsLoading(true);
+   
     const filteredList = pokemonData.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(query.toLowerCase())
     );
-
     setFilteredPokemonList(filteredList);
-
     // Si query está en blanco, utiliza la paginación normal; de lo contrario, muestra todos los resultados en una página
     setPageSize(query === "" ? 100 : filteredList.length);
     setIsLoading(false);
-
   }, [query, pokemonData]);
 
   // Lista de pokemons paginada
@@ -61,7 +58,8 @@ export default function Home() {
     currentPage * pageSize
   );
 
-  if (isLoading || pokemonData === null) {
+  if (isLoading) {
+    console.log("Loading")
     return <Loader />;
   }
 
@@ -94,8 +92,9 @@ export default function Home() {
                     alt={pokemon.name}
                     className={Styles.image}
                     onError={(e) => {
-                      e.target.onerror = null; // Para evitar bucles de errores
-                      e.target.src = '/assets/pokeball.svg'; // Ruta de la imagen alternativa
+                      const target = e.target as HTMLImageElement; // Hacer un type casting explícito
+                      target.onerror = null; 
+                      target.src = '/assets/pokeball.svg'; // Ruta de la imagen alternativa
                     }}
                   />
                 <h1 className={Styles.name} >{pokemon.name}</h1>
@@ -113,8 +112,9 @@ export default function Home() {
                     alt={pokemon.name}
                     className={Styles.image}
                     onError={(e) => {
-                      e.target.onerror = null; // Para evitar bucles de errores
-                      e.target.src = '/assets/pokeball.svg'; // Ruta de la imagen alternativa
+                      const target = e.target as HTMLImageElement; // Hacer un type casting explícito
+                      target.onerror = null; 
+                      target.src = '/assets/pokeball.svg'; // Ruta de la imagen alternativa
                     }}
                   />
                   <h1 className={Styles.name} >{pokemon.name}</h1>

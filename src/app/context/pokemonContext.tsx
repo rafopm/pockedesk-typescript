@@ -12,7 +12,7 @@ const PokemonContext = createContext<PokemonContextType>([]);
 // Proveedor que envuelve toda la aplicación para proporcionar el contexto
 export function PokemonProvider({ children }: { children: ReactNode }) {
     const [pokemons, setPokemons] = useState<Pokemon[]>([]); // Inicializa el estado con un array vacío
-
+ 
     useEffect(() => {
         // Llama a la función fetchPokemons y actualiza el estado con la respuesta
         fetchPokemons()

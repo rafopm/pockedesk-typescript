@@ -1,0 +1,11 @@
+.footer{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: var(--text-color-light);
+}
+
+.link{
+    color: var(--bg-color);
+    text-decoration: none;
+}
