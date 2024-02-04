@@ -4,7 +4,6 @@ import Styles from "./styles/home.module.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
-import { fetchPokemons } from "./api/fetchPokemons";
 import { Pokemon } from "./types/types.d";
 import Loader from "./components/Loader";
 import Link from "next/link";
@@ -13,32 +12,37 @@ import Image from "next/image";
 
 export default function Home() {
   const [query, setQuery] = useState("");
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(100); // Ajusta el tamaño de la página según tus necesidades
   const [filteredPokemonList, setFilteredPokemonList] = useState<Pokemon[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const pokemonData = usePokemons()
-  // Hook de efecto para cargar la lista de pokemons al montar el componente
-
-  console.log('aa', pokemonData);
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       const pokemons = await fetchPokemons();
-
-  //       setPokemonList(pokemons);
-  //       setIsLoading(false);
-  //     } catch (error: any) {
-  //       console.error('Error al obtener pokemons:', error.message);
-  //     }
-  //   })();
-  // }, []);
-
-  // Hook de efecto para filtrar la lista de pokemons cuando el valor de 'query' cambia
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) { // Muestra el botón cuando el scroll llega a cierta posición
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
     const filteredList = pokemonData.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(query.toLowerCase())
     );
@@ -47,6 +51,8 @@ export default function Home() {
 
     // Si query está en blanco, utiliza la paginación normal; de lo contrario, muestra todos los resultados en una página
     setPageSize(query === "" ? 100 : filteredList.length);
+    setIsLoading(false);
+
   }, [query, pokemonData]);
 
   // Lista de pokemons paginada
@@ -82,12 +88,17 @@ export default function Home() {
         {query !== "" ? (
           <div className={Styles.grid}>
             {filteredPokemonList.map((pokemon, index) => (
-
-              <Link key={index} href={`/${pokemon.id}`}>
-                <div className={Styles.card} >
-                  <img src={pokemon.gifSrc} alt={pokemon.name} className={Styles.image} />
-                  <h1 className={Styles.name}>{pokemon.name}</h1>
-                </div>
+              <Link key={index} href={`/${pokemon.id}`} className={Styles.card}>
+                  <img
+                    src={pokemon.gifSrc}
+                    alt={pokemon.name}
+                    className={Styles.image}
+                    onError={(e) => {
+                      e.target.onerror = null; // Para evitar bucles de errores
+                      e.target.src = '/assets/pokeball.svg'; // Ruta de la imagen alternativa
+                    }}
+                  />
+                <h1 className={Styles.name} >{pokemon.name}</h1>
               </Link>
 
             ))}
@@ -96,19 +107,29 @@ export default function Home() {
           <div className={Styles.grid}>
             {paginatedPokemons.map((pokemon, index) => (
               <div key={index} className={Styles.card} >
-              <Link key={index} href={`/${pokemon.id}`}>
-                <div className={Styles.card} >
-                  <img src={pokemon.gifSrc} alt={pokemon.name} className={Styles.image} />
-                  <h1 className={Styles.name}>{pokemon.name}</h1>
-                </div>
-              </Link>
+                <Link key={index} href={`/${pokemon.id}`} className={Styles.card}>
+                  <img
+                    src={pokemon.gifSrc}
+                    alt={pokemon.name}
+                    className={Styles.image}
+                    onError={(e) => {
+                      e.target.onerror = null; // Para evitar bucles de errores
+                      e.target.src = '/assets/pokeball.svg'; // Ruta de la imagen alternativa
+                    }}
+                  />
+                  <h1 className={Styles.name} >{pokemon.name}</h1>
+                </Link>
               </div>
             ))}
           </div>
         )}
 
       </div>
-      <Footer />
+      {showScrollButton && (
+        <button onClick={scrollToTop} className={Styles.scrollButton}>
+          <Image src="/images/arrow.svg" alt="Arrow" width={50} height={50} />
+        </button>
+      )}
     </main>
   );
 }

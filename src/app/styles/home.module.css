@@ -13,7 +13,7 @@
 .buttonLeft:disabled {
     opacity: 0.5;
 }
-  
+
 
 .buttonRight {
     margin-left: 20px;
@@ -26,7 +26,7 @@
     opacity: 0.5;
 }
 
-.pageInfo{
+.pageInfo {
     border: solid 3px var(--secondary-color);
     border-radius: 5px;
     padding: 5px;
@@ -35,39 +35,45 @@
     font-size: 1.2rem;
 }
 
-.grid{
-   margin-top: 20px;
-   display: flex;
-   gap: 10px;
-   flex-wrap: wrap;
-   justify-content: center;
+.grid {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 
 }
 
-.card{
+.card {
     display: flex;
     width: 360px;
     height: 80px;
-    background: var(--secondary-color);
+    background: rgba(var(--secondary-color-rgb), 0.40);
     border-radius: 5px;
+    text-decoration: none;
 }
 
-.image{
+.image {
     width: 70px;
     height: 70px;
     margin: 10px;
 }
 
-.name{
-    width: 260px;
+.name {
+    width: 280px;
     color: var(--text-color-light);
     font-size: 1.5rem;
     margin-top: 20px;
+    margin-right: 10px;
     font-weight: bold;
     text-align: center;
-    text-decoration: none;
 }
 
-.name:visited{
-    text-decoration: none;
+.scrollButton {
+    all: initial; 
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    rotate: 90deg;
+   
 }

@@ -1,0 +1,28 @@
+.header {
+    /* background: var(--bg-gradient); */
+    
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1024px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.logo {
+    margin-top: 20px;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    background: var(--secondary-color);
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
