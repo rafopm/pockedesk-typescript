@@ -66,10 +66,15 @@
     text-align: center;
 }
 
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 480px) {
+
     .container{
         margin-top: 20px;
     }
+}
+
+@media screen and (max-width: 370px) {
+
 
     .card{
         width: 90%;
