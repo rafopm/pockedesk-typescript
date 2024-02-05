@@ -77,3 +77,11 @@
     rotate: 90deg;
    
 }
+
+@media screen and (max-width: 370px) {
+    .card {
+        width: 98%;
+    }
+    
+
+}

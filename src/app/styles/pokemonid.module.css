@@ -1,5 +1,6 @@
 .container{
     display: flex;
+    flex-direction: column;
     align-items: center; /* Centrar verticalmente */
     justify-content: center; /* Centrar horizontalmente */
     margin-top: 80px;
@@ -65,9 +66,31 @@
     text-align: center;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 370px) {
     .container{
         margin-top: 20px;
+    }
+
+    .card{
+        width: 90%;
+        height: fit-content;
+    }
+
+    .image{
+        width:  90%;
+        height: auto;
+        margin: auto;
+    }
+
+    .imageSign{
+        width: 90%;
+    }
+
+    .stats{
+        width: 90%;
+    }
+    .statsDescription{
+        width: 90%;
     }
 }
 

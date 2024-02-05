@@ -24,7 +24,7 @@ const PokemonDetails = ({ params }: { params: { pokemonId: string } }) => {
     <div className={Styles.container}>
       <div className={Styles.card}>
         <div className={Styles.name}>{pokemonInfo.name}</div>
-        <div className={Styles.imageContainer}>
+
           <img
             src={pokemonInfo.imgSrc}
             alt={pokemonInfo.name}
@@ -35,7 +35,7 @@ const PokemonDetails = ({ params }: { params: { pokemonId: string } }) => {
               target.src = '/assets/pokeball.svg'; // Ruta de la imagen alternativa
             }}
           />
-        </div>
+
         <div className={Styles.imageSign}>
           <Image src="/images/speed.svg" alt="Atack" width={64} height={36} style={{ width: "90px" }} />
           <Image src="/images/hp.svg" alt="Hp" width={51} height={51} style={{ width: "90px" }} />

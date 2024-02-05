@@ -25,7 +25,7 @@
 }
 
 .search::placeholder {
-    color: var(--text-color-light);
+    color: rgb(160, 160, 160);
 }
 
 .search:focus {
